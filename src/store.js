@@ -165,7 +165,7 @@ function createCouponForCurrentOrderCount() {
  */
 function maybeGenerateCouponForNthOrder() {
   if (state.orderCount === 0) return;
-  if (state.orderCount % N !== 0) return;
+  if (state.orderCount % (N+1) !== 0) return;
 
   const unusedCouponExists = state.coupons.some((c) => !c.used);
   if (unusedCouponExists) return;
@@ -193,7 +193,7 @@ function adminGenerateCoupon() {
     throw err;
   }
 
-  if (state.orderCount % N !== 0) {
+  if (state.orderCount % (N+1) !== 0) {
     const err = new Error(`Coupon is available only after every ${N}th order`);
     err.status = 400;
     err.code = 'NOT_NTH_ORDER';
